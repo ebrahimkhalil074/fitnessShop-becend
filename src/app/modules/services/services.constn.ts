@@ -1,0 +1,1 @@
+ export const servicesSerchableFields=["name","description","duration","price"]
