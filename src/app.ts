@@ -15,7 +15,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: ['https://car-wash-itrk.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['https://car-wash-tdpm.vercel.app'], credentials: true }));
 
 // application routes
 app.use('/api', router);
