@@ -7,7 +7,7 @@ import { servicesServices } from "./services.service";
 
 
 const createServices=catchAsync(async(req,res)=>{
-    console.log( 'test',req.body);
+    // console.log( 'test',req.body);
     
     const result = await servicesServices.createServicesIntoDB(req.body);
     sendResponse(res,{
@@ -19,6 +19,8 @@ const createServices=catchAsync(async(req,res)=>{
 })
 
 const getAllServices=catchAsync(async(req,res)=>{
+   
+
     const result = await servicesServices.getAllServicesFromDB(req.query);
     sendResponse(res,{
         statusCode: httpStatus.OK,

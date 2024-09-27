@@ -28,8 +28,29 @@ const getAllAvailableSlotsFromDB=catchAsync(async(req,res)=>{
         data: result,   
     })
 })
+const singleServiceAllSlots=catchAsync(async(req,res)=>{
+    const {id} = req.params
 
+    const result = await slotServices.singleServiceAllSlotsFromDB(id);
+    sendResponse(res,{
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'all slots retrieved successfully',
+        data: result,   
+    })
+})
 
+const updateSlotsStstus=catchAsync(async(req,res)=>{
+    const {id} = req.params
+    const  status = req.body
+        const result = await slotServices.updateSlotsStatusIntoDB(id,status);
+        sendResponse(res,{
+            statusCode: httpStatus.OK,
+            success: true,
+            message: ' service are updated successfully',
+            data: result,   
+        })
+    });
 
 
 
@@ -38,5 +59,7 @@ const getAllAvailableSlotsFromDB=catchAsync(async(req,res)=>{
 export const slotController ={
    createSlot,
    getAllAvailableSlotsFromDB,
+   singleServiceAllSlots,
+   updateSlotsStstus
  
 }

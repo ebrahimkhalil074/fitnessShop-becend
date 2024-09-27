@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import QueryBuilder from "../../builder/QueryBuilder";
+import AppError from "../../errors/AppError";
 import { Services } from "../services/services.model";
 import { slotSearchableFields } from "./slot.constan";
 import { TSlot } from "./slot.interface";
 import { Slot } from "./slot.model";
-
 
 
 const createSlotIntoDB=async(payload:TSlot,)=>{
@@ -72,7 +73,7 @@ const createSlotIntoDB=async(payload:TSlot,)=>{
 const getAllAvailableSlotsFromDB = async (
   query: Record<string, unknown>,
 ) => {
-  const slotQuery = new QueryBuilder(Slot.find(), query)
+   const slotQuery = new QueryBuilder(Slot.find().populate('service'), query)
     .search(slotSearchableFields)
     .filter()
     .sort()
@@ -87,11 +88,50 @@ const getAllAvailableSlotsFromDB = async (
     result,
   };
 };
+const singleServiceAllSlotsFromDB =async (id:string)=>{
+  // console.log(id);
+  
+  const result = await Slot.find( {service:id} );
 
+
+  if (!result) {
+    throw new AppError(404, 'No slots found for this service' );
+  }
+
+  return result;
+}
+const updateSlotsStatusIntoDB =async (id:string,status:any)=>{
+  // console.log(id,status);
+  const slot = await Slot.findById(id);
+  // console.log(slot);
+  
+
+  if (!slot) {
+    throw new AppError( 404,'Slot not found' );
+  }
+
+  // Prevent updating a booked slot
+  if (slot.isBooked ==="booked") {
+    throw new AppError(400,'Cannot update the status of a booked slot.' );
+  }
+
+  // Update status
+  const result = await Slot.findByIdAndUpdate(
+    { _id: id },
+  status ,
+    {
+      new: true,
+    },
+  );
+  return result;
+
+}
 
 export const slotServices = {
    createSlotIntoDB,
    getAllAvailableSlotsFromDB,
+   singleServiceAllSlotsFromDB,
+   updateSlotsStatusIntoDB,
   };
    
 

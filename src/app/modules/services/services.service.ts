@@ -25,11 +25,12 @@ if (isExistingServices) {
 const getAllServicesFromDB=async(query:Record<string,unknown>)=>{
     const servicesQuery = new QueryBuilder(Services.find(),query).search(servicesSerchableFields).filter().sort().paginate().fields();
     const result =await servicesQuery.modelQuery;
-    return result
+    const meta = await servicesQuery.countTotal();
+   return {result, meta}
 }
 const getSingleServicesFromDB=async(id:string)=>{
    const result =await Services.findById(id)
-   return result
+return result
 }
 const updateServicesFromDB=async(id:string,payload:Partial<TServices>)=>{
 
@@ -52,13 +53,7 @@ const deleteServicesFromDB=async(id:string)=>{
    if (!isExsitServices) {
       throw new AppError(httpStatus.NOT_FOUND,'service not found')
    }
-   const result =await Services.findByIdAndUpdate(id,
-    {
-    isDeleted: true,
-    new: true,
-    runValidators: true,
-
-   })
+   const result =await Services.findByIdAndDelete(id)
    return result
 }
 
