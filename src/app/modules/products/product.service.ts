@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import QueryBuilder from "../../builder/QueryBuilder";
 import AppError from "../../errors/AppError";
@@ -5,12 +6,12 @@ import { TProduct } from "./product.interface";
 import Product from "./product.model";
 
 
-const createProductFromDB =async(payload)=>{
+const createProductFromDB =async(payload:any)=>{
 const result = await Product.create(payload);
 return result
 }
 
-const getAllProducts = async (query) => {
+const getAllProducts = async (query:any) => {
     console.log('ser',query);
     const productsQuery = new QueryBuilder(Product.find(),query).search(['name','description','category']).filter().sort().paginate().fields();
     const result =await productsQuery.modelQuery;
