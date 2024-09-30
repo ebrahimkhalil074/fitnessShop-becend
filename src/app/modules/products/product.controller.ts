@@ -10,12 +10,12 @@ const result =await productsService.createProductFromDB(product);
 sendResponse(res,{
     statusCode: httpStatus.OK,
     success: true,
-    message:  "Products create successfully!",
+    message:  "Product create successfully!",
     data: result,   
 })
 })
 const getAllProductsHandler =catchAsync( async(req,res)=>{
-console.log(req.query)
+// console.log(req.query)
 const result = await productsService.getAllProducts(req.query);
 
 sendResponse(res,{
