@@ -15,7 +15,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: ['https://fitnes-shop.vercel.app','http://localhost:5173','http://localhost:5174'], credentials: true }));
+app.use(cors({ origin: ['https://fitnes-shop.vercel.app'], credentials: true }));
 
 // application routes
 app.use('/api', router);
