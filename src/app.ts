@@ -15,7 +15,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin:['https://fitnes-shop.vercel.app','https://fitness-shop-becend.vercel.app'], credentials: true }));
+// app.use(cors({ origin:['https://fitnes-shop.vercel.app','https://fitness-shop-becend.vercel.app'], credentials: true }));
 app.use(cors({
   origin: 'https://fitnes-shop.vercel.app',credentials:true
 }));
