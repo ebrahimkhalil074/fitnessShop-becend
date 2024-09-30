@@ -15,14 +15,14 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: ['https://car-wash-tdpm.vercel.app'], credentials: true }));
+app.use(cors({ origin: ['https://car-wash-tdpm.vercel.app','http://localhost:5173','http://localhost:5174'], credentials: true }));
 
 // application routes
 app.use('/api', router);
 
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('car wash services !');
+  res.send('fitnes shop..!');
 });
 
 app.use(globalErrorHandler);
