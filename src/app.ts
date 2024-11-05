@@ -17,12 +17,12 @@ app.use(cookieParser());
 
 // app.use(cors({ origin:['https://fitnes-shop.vercel.app','https://fitness-shop-becend.vercel.app'], credentials: true }));
 app.use(cors({
-  origin: ['https://fitnes-shop.vercel.app','https://fitnes-shop.vercel.app/'],credentials:true
+  origin: '*',credentials:true
 }));
 
 // application routes
 app.use('/api', router);
-
+    
 
 app.get('/', (req: Request, res: Response) => {
   res.send('fitnes shop..!');
